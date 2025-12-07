@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Studio | Professional QR Code Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@latest/build/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button id="themeToggle">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="brand">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1>QR<span class="logo-accent">Studio</span></h1>
+                            <p class="tagline">Create. Customize. Deploy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <nav class="main-nav">
+                    <a href="#" class="nav-btn active">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Create New</span>
+                    </a>
+                    <a href="#" class="nav-btn">
+                        <i class="fas fa-history"></i>
+                        <span>History</span>
+                    </a>
+                    <a href="#" class="nav-btn">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                    <a href="#" class="nav-btn">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel - Controls -->
+            <div class="panel controls-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-sliders-h"></i>
+                        <h2>QR Code Settings</h2>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="icon-btn" id="resetBtn" title="Reset all settings">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                        <button class="icon-btn" id="saveBtn" title="Save preset">
+                            <i class="fas fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <!-- URL Input Section -->
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <i class="fas fa-globe"></i>
+                            <h3>Destination URL</h3>
+                            <span class="badge required">Required</span>
+                        </div>
+                        <div class="setting-content">
+                            <div class="input-group">
+                                <div class="input-with-icon">
+                                    <i class="fas fa-link"></i>
+                                    <input type="text" 
+                                           id="urlInput" 
+                                           class="styled-input"
+                                           placeholder="https://your-website.com"
+                                           value="https://github.com">
+                                    <button class="input-btn" id="validateBtn" title="Validate URL">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </div>
+                                <div class="input-meta">
+                                    <span class="char-count" id="charCount">0/200</span>
+                                    <span class="status-indicator" id="urlStatus"></span>
+                                </div>
+                            </div>
+
+                            <div class="quick-links">
+                                <button class="quick-link" data-url="https://github.com">
+                                    <i class="fab fa-github"></i> GitHub
+                                </button>
+                                <button class="quick-link" data-url="https://linkedin.com">
+                                    <i class="fab fa-linkedin"></i> LinkedIn
+                                </button>
+                                <button class="quick-link" data-url="https://instagram.com">
+                                    <i class="fab fa-instagram"></i> Instagram
+                                </button>
+                                <button class="quick-link" data-url="https://twitter.com">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- URL Shortening -->
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <i class="fas fa-compress-alt"></i>
+                            <h3>URL Shortening</h3>
+                            <span class="badge optional">Optional</span>
+                        </div>
+                        <div class="setting-content">
+                            <div class="toggle-container">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="enableShortening">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-label">Enable URL Shortening</span>
+                                </label>
+                            </div>
+
+                            <div class="shorten-options" id="shortenOptions">
+                                <select class="styled-select" id="shortenerService">
+                                    <option value="isgd">is.gd (Recommended)</option>
+                                    <option value="custom">Custom Shortener</option>
+                                </select>
+                                <button class="secondary-btn" id="shortenBtn">
+                                    <i class="fas fa-magic"></i> Shorten
+                                </button>
+                            </div>
+
+                            <div class="short-result" id="shortResult">
+                                <div class="short-url-box">
+                                    <span id="shortUrlText">Short URL will appear here</span>
+                                    <div class="short-url-actions">
+                                        <button class="icon-btn small" id="copyShortBtn" title="Copy">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                        <button class="icon-btn small" id="testShortBtn" title="Test">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Design Customization -->
+                    <div class="setting-card">
+                        <div class="setting-header">
+                            <i class="fas fa-palette"></i>
+                            <h3>Design & Appearance</h3>
+                            <span class="badge customize">Customize</span>
+                        </div>
+                        <div class="setting-content">
+                            <!-- Color Selection -->
+                            <div class="color-grid">
+                                <div class="color-option">
+                                    <label>QR Color</label>
+                                    <div class="color-input">
+                                        <input type="color" id="qrColor" value="#3b82f6" class="color-picker">
+                                        <input type="text" id="qrColorText" value="#3b82f6" class="color-code">
+                                    </div>
+                                </div>
+                                <div class="color-option">
+                                    <label>Background</label>
+                                    <div class="color-input">
+                                        <input type="color" id="bgColor" value="#0f172a" class="color-picker">
+                                        <input type="text" id="bgColorText" value="#0f172a" class="color-code">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Size Control -->
+                            <div class="slider-group">
+                                <div class="slider-header">
+                                    <label>Size: <span id="sizeValue" class="value">300</span>px</label>
+                                    <div class="size-presets">
+                                        <button class="size-btn" data-size="200">S</button>
+                                        <button class="size-btn active" data-size="300">M</button>
+                                        <button class="size-btn" data-size="400">L</button>
+                                        <button class="size-btn" data-size="500">XL</button>
+                                    </div>
+                                </div>
+                                <input type="range" id="qrSize" min="150" max="600" value="300" class="styled-slider">
+                            </div>
+
+                            <!-- Margin Control -->
+                            <div class="slider-group">
+                                <label>Margin: <span id="marginValue" class="value">20</span>px</label>
+                                <input type="range" id="qrMargin" min="0" max="40" value="20" class="styled-slider">
+                            </div>
+
+                            <!-- Error Correction -->
+                            <div class="select-group">
+                                <label>Error Correction</label>
+                                <select class="styled-select" id="errorCorrection">
+                                    <option value="L">Low (7%) - Small QR</option>
+                                    <option value="M">Medium (15%) - Balanced</option>
+                                    <option value="Q">Quartile (25%) - Good</option>
+                                    <option value="H" selected>High (30%) - Best</option>
+                                </select>
+                            </div>
+
+                            <!-- Logo Upload -->
+                            <div class="upload-group">
+                                <label>Center Logo</label>
+                                <div class="upload-area" id="uploadArea">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Drop logo image or <span>browse</span></p>
+                                    <input type="file" id="logoUpload" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <div class="generate-section">
+                        <button class="generate-btn" id="generateBtn">
+                            <div class="btn-content">
+                                <i class="fas fa-bolt"></i>
+                                <span>Generate QR Code</span>
+                            </div>
+                            <div class="btn-loading" id="btnLoading">
+                                <div class="spinner"></div>
+                            </div>
+                        </button>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Last: <span id="lastGenerated">Just now</span></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-qrcode"></i>
+                                <span>Total: <span id="totalGenerated">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Preview -->
+            <div class="panel preview-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-eye"></i>
+                        <h2>Live Preview</h2>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="icon-btn" id="refreshPreview" title="Refresh">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button class="icon-btn" id="fullscreenPreview" title="Fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <!-- QR Preview -->
+                    <div class="preview-container">
+                        <div class="preview-header">
+                            <div class="preview-info">
+                                <h3>QR Code Preview</h3>
+                                <p class="preview-url" id="previewUrl">https://github.com</p>
+                            </div>
+                            <div class="preview-size">
+                                <i class="fas fa-ruler"></i>
+                                <span id="previewSize">300×300px</span>
+                            </div>
+                        </div>
+
+                        <div class="preview-display">
+                            <div class="qr-container" id="qrContainer">
+                                <div class="qr-placeholder" id="qrPlaceholder">
+                                    <i class="fas fa-qrcode"></i>
+                                    <p>Your QR code will appear here</p>
+                                    <small>Configure settings and click Generate</small>
+                                </div>
+                                <div class="qr-canvas" id="qrCanvas">
+                                    <!-- QR code will render here -->
+                                </div>
+                            </div>
+
+                            <!-- Zoom Controls -->
+                            <div class="zoom-controls">
+                                <button class="zoom-btn" id="zoomOut" title="Zoom Out">
+                                    <i class="fas fa-search-minus"></i>
+                                </button>
+                                <span class="zoom-level" id="zoomLevel">100%</span>
+                                <button class="zoom-btn" id="zoomIn" title="Zoom In">
+                                    <i class="fas fa-search-plus"></i>
+                                </button>
+                                <input type="range" id="zoomSlider" min="50" max="200" value="100" class="zoom-slider">
+                            </div>
+
+                            <!-- QR Stats -->
+                            <div class="qr-stats">
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="errorLevel">High</div>
+                                        <div class="stat-label">Correction</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="scannable">Yes</div>
+                                        <div class="stat-label">Scannable</div>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+                                    <div class="stat-info">
+                                        <div class="stat-value" id="dataSize">Medium</div>
+                                        <div class="stat-label">Data</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Download Options -->
+                    <div class="download-section">
+                        <div class="section-header">
+                            <i class="fas fa-download"></i>
+                            <h3>Export Options</h3>
+                        </div>
+
+                        <div class="format-options">
+                            <button class="format-option active" data-format="png">
+                                <i class="fas fa-file-image"></i>
+                                <span>PNG</span>
+                            </button>
+                            <button class="format-option" data-format="svg">
+                                <i class="fas fa-file-code"></i>
+                                <span>SVG</span>
+                            </button>
+                            <button class="format-option" data-format="pdf">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>PDF</span>
+                            </button>
+                            <button class="format-option" data-format="jpeg">
+                                <i class="fas fa-file-image"></i>
+                                <span>JPEG</span>
+                            </button>
+                        </div>
+
+                        <div class="download-actions">
+                            <button class="download-btn primary" id="downloadPNG">
+                                <i class="fas fa-download"></i>
+                                <span>Download PNG</span>
+                            </button>
+                            <button class="download-btn secondary" id="downloadSVG">
+                                <i class="fas fa-download"></i>
+                                <span>Download SVG</span>
+                            </button>
+                        </div>
+
+                        <div class="download-settings">
+                            <label class="checkbox">
+                                <input type="checkbox" id="includeLogo" checked>
+                                <span class="checkmark"></span>
+                                <span>Include logo in export</span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="transparentBg">
+                                <span class="checkmark"></span>
+                                <span>Transparent background</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Tips -->
+                    <div class="tips-section">
+                        <div class="tips-header">
+                            <i class="fas fa-lightbulb"></i>
+                            <h3>Pro Tips</h3>
+                        </div>
+                        <ul class="tips-list">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>Use high contrast colors for better scanning</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>Test with multiple scanners before printing</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>Keep URL under 100 characters for best results</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                <span>Use High error correction for damaged codes</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-qrcode"></i>
+                        <span>QRStudio</span>
+                    </div>
+                    <p class="footer-description">
+                        Professional QR code generator for businesses and creators.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <a href="#">Custom QR Codes</a>
+                    <a href="#">URL Shortening</a>
+                    <a href="#">Analytics</a>
+                    <a href="#">Batch Generation</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="#">Documentation</a>
+                    <a href="#">API</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Support</a>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">GDPR</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> QRStudio. All rights reserved.</p>
+                <div class="footer-stats">
+                    <span class="stat">
+                        <i class="fas fa-qrcode"></i>
+                        <span id="totalCodes">0</span> codes generated
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-users"></i>
+                        <span id="activeUsers">1</span> active now
+                    </span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
