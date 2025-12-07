@@ -19,6 +19,16 @@ With real-time preview, URL shortening, and multiple export options, it's your a
 
 ---
 
+</p>
+
+---
+
+## Live Link
+
+https://quick-qr-lake.vercel.app/
+
+---
+
 ## Features
 
 | Feature | Description |
