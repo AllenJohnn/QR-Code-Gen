@@ -6,7 +6,7 @@
     <title>QR Studio | Professional QR Code Generator</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/qrcode@latest/build/qrcode.min.js"></script>
 </head>
 <body>
@@ -30,28 +30,21 @@
                         </div>
                         <div class="logo-text">
                             <h1>QR<span class="logo-accent">Studio</span></h1>
-                            <p class="tagline">Create. Customize. Deploy.</p>
+                            <p class="tagline">Create. Customize. Download.</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Only working navigation -->
                 <nav class="main-nav">
-                    <a href="#" class="nav-btn active">
+                    <button class="nav-btn active" id="generateTab">
                         <i class="fas fa-plus-circle"></i>
-                        <span>Create New</span>
-                    </a>
-                    <a href="#" class="nav-btn">
-                        <i class="fas fa-history"></i>
-                        <span>History</span>
-                    </a>
-                    <a href="#" class="nav-btn">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Analytics</span>
-                    </a>
-                    <a href="#" class="nav-btn">
-                        <i class="fas fa-cog"></i>
-                        <span>Settings</span>
-                    </a>
+                        <span>Create QR</span>
+                    </button>
+                    <button class="nav-btn" id="resetAllBtn">
+                        <i class="fas fa-redo"></i>
+                        <span>Reset All</span>
+                    </button>
                 </nav>
             </div>
         </header>
@@ -64,14 +57,6 @@
                     <div class="panel-title">
                         <i class="fas fa-sliders-h"></i>
                         <h2>QR Code Settings</h2>
-                    </div>
-                    <div class="panel-actions">
-                        <button class="icon-btn" id="resetBtn" title="Reset all settings">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                        <button class="icon-btn" id="saveBtn" title="Save preset">
-                            <i class="fas fa-bookmark"></i>
-                        </button>
                     </div>
                 </div>
 
@@ -102,24 +87,11 @@
                                 </div>
                             </div>
 
-                            <div class="quick-links">
-                                <button class="quick-link" data-url="https://github.com">
-                                    <i class="fab fa-github"></i> GitHub
-                                </button>
-                                <button class="quick-link" data-url="https://linkedin.com">
-                                    <i class="fab fa-linkedin"></i> LinkedIn
-                                </button>
-                                <button class="quick-link" data-url="https://instagram.com">
-                                    <i class="fab fa-instagram"></i> Instagram
-                                </button>
-                                <button class="quick-link" data-url="https://twitter.com">
-                                    <i class="fab fa-twitter"></i> Twitter
-                                </button>
-                            </div>
+                            <!-- Remove quick links section -->
                         </div>
                     </div>
 
-                    <!-- URL Shortening -->
+                    <!-- URL Shortening - Simplified -->
                     <div class="setting-card">
                         <div class="setting-header">
                             <i class="fas fa-compress-alt"></i>
@@ -127,23 +99,9 @@
                             <span class="badge optional">Optional</span>
                         </div>
                         <div class="setting-content">
-                            <div class="toggle-container">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" id="enableShortening">
-                                    <span class="toggle-slider"></span>
-                                    <span class="toggle-label">Enable URL Shortening</span>
-                                </label>
-                            </div>
-
-                            <div class="shorten-options" id="shortenOptions">
-                                <select class="styled-select" id="shortenerService">
-                                    <option value="isgd">is.gd (Recommended)</option>
-                                    <option value="custom">Custom Shortener</option>
-                                </select>
-                                <button class="secondary-btn" id="shortenBtn">
-                                    <i class="fas fa-magic"></i> Shorten
-                                </button>
-                            </div>
+                            <button class="secondary-btn full-width" id="shortenBtn">
+                                <i class="fas fa-magic"></i> Shorten This URL
+                            </button>
 
                             <div class="short-result" id="shortResult">
                                 <div class="short-url-box">
@@ -152,11 +110,11 @@
                                         <button class="icon-btn small" id="copyShortBtn" title="Copy">
                                             <i class="fas fa-copy"></i>
                                         </button>
-                                        <button class="icon-btn small" id="testShortBtn" title="Test">
-                                            <i class="fas fa-external-link-alt"></i>
-                                        </button>
                                     </div>
                                 </div>
+                                <button class="secondary-btn small" id="useShortUrlBtn">
+                                    <i class="fas fa-check-circle"></i> Use This URL
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -191,12 +149,6 @@
                             <div class="slider-group">
                                 <div class="slider-header">
                                     <label>Size: <span id="sizeValue" class="value">300</span>px</label>
-                                    <div class="size-presets">
-                                        <button class="size-btn" data-size="200">S</button>
-                                        <button class="size-btn active" data-size="300">M</button>
-                                        <button class="size-btn" data-size="400">L</button>
-                                        <button class="size-btn" data-size="500">XL</button>
-                                    </div>
                                 </div>
                                 <input type="range" id="qrSize" min="150" max="600" value="300" class="styled-slider">
                             </div>
@@ -211,21 +163,11 @@
                             <div class="select-group">
                                 <label>Error Correction</label>
                                 <select class="styled-select" id="errorCorrection">
-                                    <option value="L">Low (7%) - Small QR</option>
-                                    <option value="M">Medium (15%) - Balanced</option>
-                                    <option value="Q">Quartile (25%) - Good</option>
-                                    <option value="H" selected>High (30%) - Best</option>
+                                    <option value="L">Low (7%)</option>
+                                    <option value="M">Medium (15%)</option>
+                                    <option value="Q">Quartile (25%)</option>
+                                    <option value="H" selected>High (30%) - Recommended</option>
                                 </select>
-                            </div>
-
-                            <!-- Logo Upload -->
-                            <div class="upload-group">
-                                <label>Center Logo</label>
-                                <div class="upload-area" id="uploadArea">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <p>Drop logo image or <span>browse</span></p>
-                                    <input type="file" id="logoUpload" accept="image/*">
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -243,12 +185,8 @@
                         </button>
                         <div class="stats">
                             <div class="stat-item">
-                                <i class="fas fa-clock"></i>
-                                <span>Last: <span id="lastGenerated">Just now</span></span>
-                            </div>
-                            <div class="stat-item">
                                 <i class="fas fa-qrcode"></i>
-                                <span>Total: <span id="totalGenerated">0</span></span>
+                                <span>Generated: <span id="totalGenerated">0</span></span>
                             </div>
                         </div>
                     </div>
@@ -265,9 +203,6 @@
                     <div class="panel-actions">
                         <button class="icon-btn" id="refreshPreview" title="Refresh">
                             <i class="fas fa-sync-alt"></i>
-                        </button>
-                        <button class="icon-btn" id="fullscreenPreview" title="Fullscreen">
-                            <i class="fas fa-expand"></i>
                         </button>
                     </div>
                 </div>
@@ -298,18 +233,6 @@
                                 </div>
                             </div>
 
-                            <!-- Zoom Controls -->
-                            <div class="zoom-controls">
-                                <button class="zoom-btn" id="zoomOut" title="Zoom Out">
-                                    <i class="fas fa-search-minus"></i>
-                                </button>
-                                <span class="zoom-level" id="zoomLevel">100%</span>
-                                <button class="zoom-btn" id="zoomIn" title="Zoom In">
-                                    <i class="fas fa-search-plus"></i>
-                                </button>
-                                <input type="range" id="zoomSlider" min="50" max="200" value="100" class="zoom-slider">
-                            </div>
-
                             <!-- QR Stats -->
                             <div class="qr-stats">
                                 <div class="stat-card">
@@ -330,15 +253,6 @@
                                         <div class="stat-label">Scannable</div>
                                     </div>
                                 </div>
-                                <div class="stat-card">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-database"></i>
-                                    </div>
-                                    <div class="stat-info">
-                                        <div class="stat-value" id="dataSize">Medium</div>
-                                        <div class="stat-label">Data</div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -347,144 +261,33 @@
                     <div class="download-section">
                         <div class="section-header">
                             <i class="fas fa-download"></i>
-                            <h3>Export Options</h3>
-                        </div>
-
-                        <div class="format-options">
-                            <button class="format-option active" data-format="png">
-                                <i class="fas fa-file-image"></i>
-                                <span>PNG</span>
-                            </button>
-                            <button class="format-option" data-format="svg">
-                                <i class="fas fa-file-code"></i>
-                                <span>SVG</span>
-                            </button>
-                            <button class="format-option" data-format="pdf">
-                                <i class="fas fa-file-pdf"></i>
-                                <span>PDF</span>
-                            </button>
-                            <button class="format-option" data-format="jpeg">
-                                <i class="fas fa-file-image"></i>
-                                <span>JPEG</span>
-                            </button>
+                            <h3>Download QR Code</h3>
                         </div>
 
                         <div class="download-actions">
-                            <button class="download-btn primary" id="downloadPNG">
+                            <button class="download-btn primary" id="downloadPNG" disabled>
                                 <i class="fas fa-download"></i>
                                 <span>Download PNG</span>
                             </button>
-                            <button class="download-btn secondary" id="downloadSVG">
+                            <button class="download-btn secondary" id="downloadSVG" disabled>
                                 <i class="fas fa-download"></i>
                                 <span>Download SVG</span>
                             </button>
                         </div>
 
-                        <div class="download-settings">
-                            <label class="checkbox">
-                                <input type="checkbox" id="includeLogo" checked>
-                                <span class="checkmark"></span>
-                                <span>Include logo in export</span>
-                            </label>
-                            <label class="checkbox">
-                                <input type="checkbox" id="transparentBg">
-                                <span class="checkmark"></span>
-                                <span>Transparent background</span>
-                            </label>
+                        <!-- Simple tips -->
+                        <div class="simple-tips">
+                            <p><i class="fas fa-lightbulb"></i> <strong>Tip:</strong> Use high contrast colors for better scanning.</p>
                         </div>
-                    </div>
-
-                    <!-- Tips -->
-                    <div class="tips-section">
-                        <div class="tips-header">
-                            <i class="fas fa-lightbulb"></i>
-                            <h3>Pro Tips</h3>
-                        </div>
-                        <ul class="tips-list">
-                            <li>
-                                <i class="fas fa-check"></i>
-                                <span>Use high contrast colors for better scanning</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check"></i>
-                                <span>Test with multiple scanners before printing</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check"></i>
-                                <span>Keep URL under 100 characters for best results</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check"></i>
-                                <span>Use High error correction for damaged codes</span>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
         </main>
 
-        <!-- Footer -->
-        <footer class="app-footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <i class="fas fa-qrcode"></i>
-                        <span>QRStudio</span>
-                    </div>
-                    <p class="footer-description">
-                        Professional QR code generator for businesses and creators.
-                    </p>
-                    <div class="social-links">
-                        <a href="#" class="social-link">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Features</h4>
-                    <a href="#">Custom QR Codes</a>
-                    <a href="#">URL Shortening</a>
-                    <a href="#">Analytics</a>
-                    <a href="#">Batch Generation</a>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <a href="#">Documentation</a>
-                    <a href="#">API</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Support</a>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Cookies</a>
-                    <a href="#">GDPR</a>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; <span id="currentYear"></span> QRStudio. All rights reserved.</p>
-                <div class="footer-stats">
-                    <span class="stat">
-                        <i class="fas fa-qrcode"></i>
-                        <span id="totalCodes">0</span> codes generated
-                    </span>
-                    <span class="stat">
-                        <i class="fas fa-users"></i>
-                        <span id="activeUsers">1</span> active now
-                    </span>
-                </div>
-            </div>
+        <!-- Simple Footer -->
+        <footer class="simple-footer">
+            <p>&copy; <span id="currentYear"></span> QR Studio | Free QR Code Generator</p>
+            <p class="footer-note">No registration required • No watermarks • Free forever</p>
         </footer>
     </div>
 
